@@ -1,0 +1,23 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: <%= ENV["DATABASE_URL"] %>
+  # username: <%= ENV.fetch("POSTGRES_USER") { 'postgres' } %>
+  # password: <%= ENV.fetch("POSTGRES_PASSWORD") { 'postgres' } %>
+  # host: <%= ENV.fetch("POSTGRES_HOST") { 'db' } %> # 'db' is the service name in Docker Compose
+  # port: <%= ENV.fetch("POSTGRES_PORT") { 5432 } %>
+
+development:
+  <<: *default
+  database: backend_development
+
+test:
+  <<: *default
+  database: backend_test
+
+production:
+  <<: *default
+  database: backend_production
+  username: <%= ENV.fetch("POSTGRES_USER") { 'backend' } %>
+  password: <%= ENV["BACKEND_DATABASE_PASSWORD"] %>
