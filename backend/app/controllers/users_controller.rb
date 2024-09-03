@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   # POST /login
   def login
     user = User.find_by_email(params[:email])
+    puts ">>>>>> #{user.inspect}"
     if user&.authenticate(params[:password])
       token = JsonWebToken.encode(user_id: user.id)
       render json: { token: token, user: user }, status: :ok

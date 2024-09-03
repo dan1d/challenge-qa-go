@@ -6,14 +6,23 @@ class ApplicationController < ActionController::API
 
   def authorize_request
     header = request.headers['Authorization']
-    header = header.split(' ').last if header
+    if header.blank?
+      return render json: { errors: 'Missing token' }, status: :unauthorized
+    end
+
+    token = header.split(' ').last
+
     begin
-      @decoded = JsonWebToken.decode(header)
+      @decoded = JsonWebToken.decode(token)
       @current_user = User.find(@decoded[:user_id])
+
+      unless @current_user
+        return render json: { errors: 'Invalid token' }, status: :unauthorized
+      end
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :unauthorized
     rescue JWT::DecodeError => e
-      render json: { errors: e.message }, status: :unauthorized
+      render json: { errors: 'Invalid token' }, status: :unauthorized
     end
   end
 end
