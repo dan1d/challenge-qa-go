@@ -3,8 +3,12 @@ class ChatRoomsController < ApplicationController
 
   # GET /chat_rooms
   def index
-    @chat_rooms = ChatRoom.all
-    render json: @chat_rooms
+    public_room = ChatRoom.public_rooms
+    private_room = current_user.chat_rooms.where(is_private: true)
+
+    chat_rooms = public_room + private_room
+
+    render json: chat_rooms, each_serializer: ChatRoomSerializer, current_user: current_user
   end
 
   # GET /chat_rooms/:id

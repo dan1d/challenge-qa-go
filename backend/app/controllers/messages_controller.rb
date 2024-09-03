@@ -3,12 +3,20 @@ class MessagesController < ApplicationController
 
   # GET /chat_rooms/:chat_room_id/messages
   def index
+    if @chat_room.is_private && !@chat_room.user_in_room?(current_user)
+      return render json: { error: 'Access denied' }, status: :forbidden
+    end
+
     @messages = @chat_room.messages.order(created_at: :asc)
-    render json: @messages
+    render json: @messages, include: :user
   end
 
   # POST /chat_rooms/:chat_room_id/messages
   def create
+    if @chat_room.is_private && !@chat_room.user_in_room?(current_user)
+      return render json: { error: 'Access denied' }, status: :forbidden
+    end
+
     @message = @chat_room.messages.new(message_params)
     @message.user = current_user
 
