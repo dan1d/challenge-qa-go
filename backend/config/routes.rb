@@ -1,12 +1,6 @@
 Rails.application.routes.draw do
-  get 'messages/index'
-  get 'messages/create'
-  get 'chat_room_users/create'
-  get 'chat_room_users/destroy'
-  get 'chat_rooms/index'
-  get 'chat_rooms/create'
-  get 'chat_rooms/show'
-  get 'chat_rooms/destroy'
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
   get "up" => "rails/health#show", as: :rails_health_check
 
   post '/register', to: 'users#create'

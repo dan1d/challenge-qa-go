@@ -46,6 +46,8 @@ RUN apt-get update -qq && \
 # Copy built artifacts (gems, app code) from the build stage
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
+COPY .env.production /rails/.env.production
+
 
 # Set permissions and run as non-root user
 RUN useradd rails --create-home --shell /bin/bash && \
