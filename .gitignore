@@ -3,3 +3,4 @@
 /frontend/env.production
 
 /frontend/node_modules
+.env
