@@ -2,3 +2,6 @@
 .env
 /frontend/node_modules
 /letsencrypt
+
+backend/.git
+frontend/.git
