@@ -64,7 +64,7 @@ This will build the Docker images and start the containers for both the backend 
 To populate the database with initial data, run the following command:
 
 ```bash
-docker-compose exec backend rails db:seed
+make setup-dev
 ```
 
 This will create some initial users that you can use to log in.
