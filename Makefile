@@ -1,8 +1,18 @@
-migrate:
+migrate-dev:
 	docker-compose -f docker-compose.development.yml exec backend ./bin/rails db:migrate
 
-seed:
+seed-dev:
 	docker-compose -f docker-compose.development.yml exec backend ./bin/rails db:seed
 
-setup:
+setup-dev:
 	docker-compose -f docker-compose.development.yml exec backend ./bin/rails db:setup
+
+
+migrate-prod:
+	docker-compose -f docker-compose.production.yml exec backend ./bin/rails db:migrate
+
+seed-prod:
+	docker-compose -f docker-compose.production.yml exec backend ./bin/rails db:seed
+
+setup-prod:
+	docker-compose -f docker-compose.production.yml exec backend ./bin/rails db:setup
