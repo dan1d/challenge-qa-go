@@ -41,12 +41,6 @@ Create a `.env` file at the project root by copying the provided `.env.example` 
 cp .env.example .env
 ```
 
-Fill in the necessary environment variables, such as `RAILS_SECRET_KEY_BASE`:
-
-```bash
-RAILS_SECRET_KEY_BASE=your_rails_secret_key_base1231asdasdasdasd
-```
-
 This will set up the required configurations for the database, backend, and frontend.
 
 ### 3. Build and Run the Containers
