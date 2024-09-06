@@ -1,0 +1,32 @@
+.landing-page {
+  background: linear-gradient(135deg, #f0f2f5, #e6e9f0);
+  padding: 50px 0;
+}
+
+.landing-container {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.landing-title {
+  font-weight: bold;
+  font-size: 48px;
+  margin-bottom: 24px;
+}
+
+.landing-description {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.landing-actions {
+  margin-bottom: 50px;
+}
+
+.project-info-card {
+  margin-top: 50px;
+  padding: 30px;
+  background-color: white;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}

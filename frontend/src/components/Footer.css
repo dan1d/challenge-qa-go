@@ -1,0 +1,26 @@
+.app-footer {
+  text-align: center;
+  background-color: #001529;
+  color: white;
+  padding: 20px;
+  /* position: sticky; wondering if looks ok*/
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-links {
+  margin-top: 10px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #1890ff;
+}
+
+.created-by {
+  color: white;
+}
