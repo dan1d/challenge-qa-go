@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  db:
+    extends:
+      file: ./backend/.docker/development/db.yml
+      service: db
+
+  backend:
+    extends:
+      file: ./backend/.docker/development/development.yml
+      service: backend
+
+  frontend:
+    extends:
+      file: ./frontend/.docker/development/development.yml
+      service: frontend
+
+volumes:
+  pgdata:
+

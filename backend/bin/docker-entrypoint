@@ -1,10 +1,14 @@
 #!/bin/bash -e
 
-# If running the rails server then create or migrate existing database
-if [ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]; then
+echo "Running entrypoint script with arguments: $@"
+
+# Check if the command is to start the Rails server
+if [[ "${1}" == "./bin/rails" && "${2}" == "server" ]]; then
+  echo "Detected Rails server start, preparing the database..."
   ./bin/rails db:prepare
   ./bin/rails db:migrate
   ./bin/rails db:seed
 fi
 
-exec "${@}"
+# Always exec the original command
+exec "$@"

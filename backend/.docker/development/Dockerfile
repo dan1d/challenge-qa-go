@@ -46,10 +46,14 @@ RUN apt-get update -qq && \
 # Copy built artifacts (gems, app code) from the build stage
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
-COPY .env.production /rails/.env.production
-
 
 # Set permissions and run as non-root user
+COPY ./bin/docker-entrypoint /rails/bin/docker-entrypoint
+
+# Change permissions before switching to the non-root user
+RUN chmod +x /rails/bin/docker-entrypoint
+
+# Now switch to non-root user
 RUN useradd rails --create-home --shell /bin/bash && \
     chown -R rails:rails db log storage tmp
 USER rails:rails

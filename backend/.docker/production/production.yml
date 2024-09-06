@@ -1,0 +1,23 @@
+# backend/.docker/development/production.yml
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ../../
+      dockerfile: .docker/production/Dockerfile
+    environment:
+      RAILS_ENV: production
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      DATABASE_URL: ${DATABASE_URL}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      RAILS_SECRET_KEY_BASE: ${RAILS_SECRET_KEY_BASE}
+    ports:
+      - "3001:3000"
+    volumes:
+      - ../../:/rails
+    depends_on:
+      - db
+    command: bash -c "rm -f tmp/pids/server.pid && rails server -b '0.0.0.0'"

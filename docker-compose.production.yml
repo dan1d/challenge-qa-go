@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  backend:
+    extends:
+      file: ./backend/.docker/production/production.yml
+      service: backend
+
+  db:
+    extends:
+      file: ./backend/.docker/development/db.yml
+      service: db
+
+  frontend:
+    extends:
+      file: ./frontend/.docker/production/production.yml
+      service: frontend
+
+  traefik:
+    image: traefik:v2.6
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - "traefik.http.routers.traefik.rule=Host(`qa-challenge.dan1d.dev`)"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+
+volumes:
+  pgdata:
+
