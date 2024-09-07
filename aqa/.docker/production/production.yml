@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  aqa:
+    build:
+      context: ../../
+      dockerfile: .docker/production/Dockerfile
+    volumes:
+      - ../results:/app/results  # To store test results
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - backend
+      - frontend

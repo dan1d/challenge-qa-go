@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  aqa:
+    build:
+      context: ../../
+      dockerfile: .docker/development/Dockerfile
+    volumes:
+      - ../results:/app/results
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend
+      - frontend
+    ports:
+      - "3002:3002"
+    command: npx cypress open --project /app

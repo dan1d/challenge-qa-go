@@ -59,7 +59,7 @@ const ChatRoomDetail = ({ chatRoomId }) => {
         onChange={(e) => setNewMessage(e.target.value)}
         placeholder="Type your message..."
       />
-      <Button type="primary" onClick={sendMessage}>
+      <Button type="primary" onClick={sendMessage} name="send">
         Send
       </Button>
     </Card>

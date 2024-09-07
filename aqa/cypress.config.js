@@ -1,0 +1,12 @@
+const { defineConfig } = require('cypress')
+
+module.exports = {
+  e2e: {
+    baseUrl: 'http://localhost:3000',
+    supportFile: 'cypress/support/index.js',
+    fixturesFolder: 'cypress/fixtures',
+    videosFolder: 'cypress/videos',
+    screenshotsFolder: 'cypress/screenshots',
+    video: false,
+  },
+};
