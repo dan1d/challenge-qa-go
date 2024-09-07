@@ -2,6 +2,23 @@
 version: '3.8'
 
 services:
+  redis:
+    image: redis:6.2
+    ports:
+      - "6379:6379"
+  sidekiq:
+    build:
+      context: ../../
+      dockerfile: .docker/production/Dockerfile
+    environment:
+      RAILS_ENV: production
+      REDIS_URL: redis://redis:6379/1
+    volumes:
+      - ../../:/rails
+    depends_on:
+      - redis
+      - db
+    command: bundle exec sidekiq -C config/sidekiq.yml
   backend:
     build:
       context: ../../

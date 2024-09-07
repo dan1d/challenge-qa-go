@@ -1,6 +1,11 @@
 version: '3.8'
 
 services:
+  redis:
+    extends:
+      file: ./backend/.docker/development/redis.yml
+      service: redis
+
   db:
     extends:
       file: ./backend/.docker/development/db.yml
@@ -16,10 +21,10 @@ services:
       file: ./frontend/.docker/development/development.yml
       service: frontend
 
-  aqa:
-    extends:
-      file: ./aqa/.docker/development/development.yml
-      service: aqa
+  # aqa:
+  #   extends:
+  #     file: ./aqa/.docker/development/development.yml
+  #     service: aqa
 
 volumes:
   pgdata:

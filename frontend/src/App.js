@@ -1,5 +1,3 @@
-// src/App.js
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Layout } from 'antd';
@@ -10,6 +8,7 @@ import ChatroomPage from './pages/ChatroomPage';
 import UserProfilePage from './pages/UserProfilePage';
 import PrivateRoute from './utils/PrivateRoute';
 import LandingPage from './pages/LandingPage';
+import TriggerTestsPage from './pages/TriggerTestsPage';
 import './App.css';
 
 function App() {
@@ -22,6 +21,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/chatroom" element={<PrivateRoute element={ChatroomPage} />} />
           <Route path="/profile" element={<PrivateRoute element={UserProfilePage} />} />
+          <Route path="/trigger-tests" element={<PrivateRoute element={TriggerTestsPage} />} />
         </Routes>
         <AppFooter />
       </Layout>

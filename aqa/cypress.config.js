@@ -9,4 +9,11 @@ module.exports = {
     screenshotsFolder: 'cypress/screenshots',
     video: false,
   },
+  reporter: 'json',
+  reporterOptions: {
+    outputDir: './results',
+    overwrite: false,
+    json: true,
+  },
+
 };

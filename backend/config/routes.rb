@@ -1,6 +1,10 @@
+
 Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
+  post '/trigger_tests', to: 'tests#trigger_tests'
+
   get "up" => "rails/health#show", as: :rails_health_check
 
   post '/register', to: 'users#create'

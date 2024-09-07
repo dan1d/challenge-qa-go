@@ -30,9 +30,16 @@ const AppHeader = () => {
             </Link>
           </Menu.Item>
         ) : (
-          <Menu.Item key="logout" onClick={handleLogout}>
-            <LogoutOutlined /> Logout
-          </Menu.Item>
+          <>
+            <Menu.Item key="logout" onClick={handleLogout}>
+              <LogoutOutlined /> Logout
+            </Menu.Item>
+            <Menu.Item key="trigger-test">
+              <Link to="/trigger-tests">
+                 Trigger Tests
+              </Link>
+            </Menu.Item>
+          </>
         )}
       </Menu>
     </Header>
