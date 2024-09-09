@@ -28,3 +28,4 @@ services:
       - "traefik.http.middlewares.aqa-websocket.headers.customrequestheaders.Connection=Upgrade"
       - "traefik.http.middlewares.aqa-websocket.headers.customrequestheaders.Upgrade=websocket"
       - "traefik.http.routers.aqa.middlewares=aqa-websocket@docker"
+      - "traefik.http.services.aqa.loadbalancer.passHostHeader=true"

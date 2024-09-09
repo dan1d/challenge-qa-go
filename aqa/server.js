@@ -107,6 +107,7 @@ wss.on('connection', (ws) => {
     clients.delete(ws);
   });
 
+  console.log('WebSocket connection established');
   ws.on('message', (message) => {
     console.log(`Received WebSocket message: ${message}`);
     if (message === 'start-tests' && !isTestRunning) {
