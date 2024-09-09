@@ -27,3 +27,5 @@ services:
       - "traefik.http.middlewares.websocket-headers.headers.customrequestheaders.Connection=Upgrade"
       - "traefik.http.middlewares.websocket-headers.headers.customrequestheaders.Upgrade=websocket"
       - "traefik.http.routers.aqa.middlewares=websocket-headers"
+    networks:
+      - dan1d_dev_network
