@@ -5,6 +5,16 @@ services:
     build:
       context: ../../
       dockerfile: .docker/production/Dockerfile
+      args:
+        - REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
+        - REACT_APP_AQA_URL=${REACT_APP_AQA_URL}
+        - RAILS_CABLE=${RAILS_CABLE}
+        - REACT_APP_AQA_WS_URL=${REACT_APP_AQA_WS_URL}
+    environment:
+      - REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
+      - REACT_APP_AQA_URL=${REACT_APP_AQA_URL}
+      - RAILS_CABLE=${RAILS_CABLE}
+      - REACT_APP_AQA_WS_URL=${REACT_APP_AQA_WS_URL}
     labels:
       - "traefik.http.routers.frontend.rule=Host(`app.qa-challenge.dan1d.dev`)"
       - "traefik.http.routers.frontend.entrypoints=websecure"
