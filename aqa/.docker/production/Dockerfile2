@@ -33,7 +33,7 @@ RUN npm install
 COPY cypress.config.js .
 COPY cypress/ ./cypress/
 
-COPY server.js .
+COPY server2.js .
 
 EXPOSE 3006
 
