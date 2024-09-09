@@ -16,10 +16,10 @@ services:
       file: ./backend/.docker/production/db.yml
       service: db
 
-  # frontend:
-  #   extends:
-  #     file: ./frontend/.docker/production/production.yml
-  #     service: frontend
+  frontend:
+    extends:
+      file: ./frontend/.docker/production/production.yml
+      service: frontend
 
   aqa:
     extends:
@@ -45,10 +45,13 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /letsencrypt:/letsencrypt
     labels:
-      - "traefik.http.routers.traefik-dashboard.rule=Host(`qa-challenge.dan1d.dev`)"
-      - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
-      - "traefik.http.routers.traefik-dashboard.tls=true"
-      - "traefik.http.routers.traefik-dashboard.tls.certresolver=myresolver"
+      - "traefik.http.routers.traefik-dashboard-http.rule=Host(`qa-challenge.dan1d.dev`)"
+      - "traefik.http.routers.traefik-dashboard-http.entrypoints=web"
+      - "traefik.http.services.traefik-dashboard.loadbalancer.server.port=8080"
+      - "traefik.http.routers.traefik-dashboard-https.rule=Host(`qa-challenge.dan1d.dev`)"
+      - "traefik.http.routers.traefik-dashboard-https.entrypoints=websecure"
+      - "traefik.http.routers.traefik-dashboard-https.tls=true"
+      - "traefik.http.routers.traefik-dashboard-https.tls.certresolver=myresolver"
       - "traefik.http.services.traefik-dashboard.loadbalancer.server.port=8080"
 
 volumes:
