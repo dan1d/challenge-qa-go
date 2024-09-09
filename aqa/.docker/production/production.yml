@@ -19,14 +19,13 @@ services:
       # - backend
       # - frontend
     command: node server.js
-    ports:
-      - "3002:3002"
     labels:
+      - "traefik.enable=true"
       - "traefik.http.routers.aqa.rule=Host(`aqa.qa-challenge.dan1d.dev`)"
       - "traefik.http.routers.aqa.entrypoints=websecure"
       - "traefik.http.routers.aqa.tls=true"
       - "traefik.http.routers.aqa.tls.certresolver=myresolver"
       - "traefik.http.services.aqa.loadbalancer.server.port=3002"
-      - "traefik.http.middlewares.websocket-headers.headers.customrequestheaders.Connection=Upgrade"
-      - "traefik.http.middlewares.websocket-headers.headers.customrequestheaders.Upgrade=websocket"
-      - "traefik.http.routers.aqa.middlewares=websocket-headers"
+      - "traefik.http.middlewares.aqa-websocket.headers.customrequestheaders.Connection=Upgrade"
+      - "traefik.http.middlewares.aqa-websocket.headers.customrequestheaders.Upgrade=websocket"
+      - "traefik.http.routers.aqa.middlewares=aqa-websocket@docker"
