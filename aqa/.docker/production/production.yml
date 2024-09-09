@@ -22,10 +22,12 @@ services:
     ports:
       - "3002:3002"
     labels:
+  labels:
       - "traefik.http.routers.aqa.rule=Host(`aqa.qa-challenge.dan1d.dev`)"
-      - "traefik.http.routers.aqa.entrypoints=websecure, wss"
+      - "traefik.http.routers.aqa.entrypoints=websecure,wss"
       - "traefik.http.routers.aqa.tls=true"
-      - "traefik.http.routers.aqa.service=aqa"
+      - "traefik.http.routers.aqa.tls.certresolver=myresolver"
       - "traefik.http.services.aqa.loadbalancer.server.port=3002"
-      - "traefik.http.routers.aqa.headers.customrequestheaders.Connection=Upgrade"
-      - "traefik.http.routers.aqa.headers.customrequestheaders.Upgrade=websocket"
+      - "traefik.http.middlewares.websocket-headers.headers.customrequestheaders.Connection=Upgrade"
+      - "traefik.http.middlewares.websocket-headers.headers.customrequestheaders.Upgrade=websocket"
+      - "traefik.http.routers.aqa.middlewares=websocket-headers"
