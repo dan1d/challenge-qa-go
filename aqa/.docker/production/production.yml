@@ -29,7 +29,7 @@ services:
       - "traefik.http.services.aqa.loadbalancer.server.port=3005"
       - "traefik.http.routers.aqa.priority=1"
       # WebSocket route handling
-      - "traefik.http.routers.aqa-ws.rule=Host(`aqa.qa-challenge.dan1d.dev`) && PathPrefix(`/ws/`)"
+      - "traefik.http.routers.aqa-ws.rule=Host(`ws-aqa.qa-challenge.dan1d.dev`)
       - "traefik.http.routers.aqa-ws.entrypoints=websecure"
       - "traefik.http.routers.aqa-ws.tls=true"
       - "traefik.http.routers.aqa-ws.tls.certresolver=myresolver"
