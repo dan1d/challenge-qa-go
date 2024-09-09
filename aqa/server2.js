@@ -4,9 +4,8 @@ const WebSocket = require('ws');
 const cors = require('cors');
 
 const app = express();
-const port = 3006;  // Ensure this is not conflicting with other services
+const port = 3006;
 
-// Allow CORS
 const allowedOrigins = ['https://app.qa-challenge.dan1d.dev', 'https://aqa.qa-challenge.dan1d.dev'];
 app.use(cors({
   origin: allowedOrigins,
@@ -14,7 +13,7 @@ app.use(cors({
   credentials: true,
 }));
 
-// WebSocket setup
+
 const wss = new WebSocket.Server({ noServer: true });
 let isTestRunning = false;
 let testLogs = [];
@@ -29,7 +28,6 @@ const broadcast = (message) => {
   });
 };
 
-// Function to run Cypress tests
 const runCypress = () => {
   console.log('Starting Cypress tests...');
   const cypressCommand = 'npx cypress run --browser chrome --headless --config-file cypress.config.js';
@@ -56,12 +54,10 @@ const runCypress = () => {
   });
 };
 
-// Start the server
 app.server = app.listen(port, () => {
   console.log(`AQA WebSocket server running at http://localhost:${port}`);
 });
 
-// Handle WebSocket upgrade for `/ws` endpoint
 app.server.on('upgrade', (request, socket, head) => {
   console.log(`Received upgrade request on ${request.url}`);
 
@@ -77,7 +73,7 @@ app.server.on('upgrade', (request, socket, head) => {
   }
 });
 
-// WebSocket connection events
+
 wss.on('connection', (ws) => {
   console.log('New WebSocket connection');
   clients.add(ws);
