@@ -33,8 +33,8 @@ services:
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
-      - "--entrypoints.ws.address=:3002"
-      - "--entrypoints.wss.address=:3002"
+      - "--entrypoints.ws.address=:3002"   # If you need to keep using 3002 for WS
+      - "--entrypoints.wss.address=:3002"  # Same as above
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
       - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL}"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
@@ -52,3 +52,4 @@ services:
 
 volumes:
   pgdata:
+  letsencrypt:

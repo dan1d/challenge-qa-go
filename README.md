@@ -12,7 +12,7 @@ The **Chat Room Application** enables users to communicate in public rooms or th
 - **User Authentication**: Secure authentication with JWT.
 - **Responsive Frontend**: Built with React and Ant Design for a smooth UI/UX experience.
 - **Backend API**: Ruby on Rails backend providing RESTful endpoints.
-- **Automated Testing**: Focus on implementing Automated QA with tools like Cypress or Nightwatch (future implementation).
+- **Automated Testing**: Focus on implementing Automated QA with tools like Cypress.
 - **Dockerized Environment**: The project can be run using Docker and Docker Compose for easy setup.
 
 ---
@@ -77,16 +77,17 @@ For testing and review purposes, you can use the following credentials to log in
 - **Email**: `test2@example.com` | **Password**: `password123`
 - **Email**: `admin@example.com` | **Password**: `admin123`
 
-### 7. Running Automated QA (Future Implementation)
+### 7. Running Automated QA
 
-We are planning to implement Automated QA using tools like Cypress or Nightwatch. For now, the service is commented out in the Docker configuration.
+We are running Automated QA using **Cypress**. For now, you can trigger the tests from the **AQATerminal** and view the results live.
 
-1. Uncomment the `aqa` service in the `docker-compose.production.yml` file.
-2. Start the services with:
+1. Start the services:
 
    ```bash
    docker-compose -f docker-compose.production.yml up --build
    ```
+
+2. Trigger the test run by visiting the **Trigger Test** page on the frontend.
 
 ### 8. Stopping the Application
 
@@ -115,6 +116,7 @@ In production, we use **Traefik** for routing and SSL termination. Follow these 
 
 - **Frontend**: `app.qa-challenge.dan1d.dev`
 - **Backend**: `api.qa-challenge.dan1d.dev`
+- **AQA**: `aqa.qa-challenge.dan1d.dev/reports/mochawesome.html`
 - **Traefik Dashboard**: `qa-challenge.dan1d.dev`
 
 ### Swagger API Documentation
