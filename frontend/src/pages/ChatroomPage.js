@@ -9,7 +9,7 @@ const { Content } = Layout;
 const ChatRoomPage = () => {
   const [currentRoom, setCurrentRoom] = useState(null);
   const [rooms, setRooms] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchRooms = async () => {
@@ -17,13 +17,13 @@ const ChatRoomPage = () => {
         const response = await api.chatRoom.getChatRooms();
         setRooms(response);
         if (response.length > 0) {
-          setCurrentRoom(response[0].id); // Set the first room as default
+          setCurrentRoom(response[0].id);
         }
       } catch (error) {
         console.log(error);
         message.error('Failed to load chat rooms');
       } finally {
-        setLoading(false); // Set loading to false once the data is fetched
+        setLoading(false);
       }
     };
 

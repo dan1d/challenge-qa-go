@@ -1,5 +1,6 @@
 import { createConsumer } from '@rails/actioncable';
 
-const cable = createConsumer('ws://localhost:3001/cable');  // Adjust the URL to point to your Rails backend
+const url = process.env.RAILS_CABLE || 'ws://localhost:3001/cable';
+const cable = createConsumer(url);
 
 export default cable;

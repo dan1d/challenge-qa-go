@@ -1,0 +1,41 @@
+/* src/components/TestTerminal.css */
+.test-terminal-card {
+  max-height: 500px;
+  overflow-y: auto;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 5px;
+  margin-bottom: 20px; /* Add some spacing below the terminal */
+}
+
+.test-terminal {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #39ff14;
+  background-color: #1e1e1e;
+  padding: 15px;
+  max-height: 400px;
+  overflow-y: scroll;
+  white-space: pre-wrap;
+}
+
+.test-terminal div {
+  margin-bottom: 8px;
+}
+
+.test-terminal-card .ant-card-head {
+  background-color: #2d2d2d;
+  color: #fff;
+}
+
+.test-terminal-card .ant-card-body {
+  padding: 0;
+}
+
+.test-report {
+  margin-top: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+}

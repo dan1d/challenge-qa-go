@@ -9,9 +9,15 @@ services:
       - ../results:/app/results
     environment:
       - NODE_ENV=development
+      - PORT=3002
+      - CYPRESS_BASE_URL=${CYPRESS_BASE_URL}
+      - CYPRESS_SUPPORT_FILE=cypress/support/index.js
+      - CYPRESS_FIXTURES_FOLDER=cypress/fixtures
+      - CYPRESS_VIDEOS_FOLDER=cypress/videos
+      - CYPRESS_SCREENSHOTS_FOLDER=cypress/screenshots
     depends_on:
       - backend
       - frontend
+    command: node server.js
     ports:
       - "3002:3002"
-    command: npx cypress open --project /app

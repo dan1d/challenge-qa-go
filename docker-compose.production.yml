@@ -1,6 +1,11 @@
 version: '3.8'
 
 services:
+  redis:
+    extends:
+      file: ./backend/.docker/production/redis.yml
+      service: redis
+
   backend:
     extends:
       file: ./backend/.docker/production/production.yml
@@ -24,17 +29,26 @@ services:
   traefik:
     image: traefik:v2.6
     command:
-      - "--api.insecure=true"
+      - "--api.insecure=false"
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.ws.address=:3002"
+      - "--entrypoints.wss.address=:3002"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /letsencrypt:/letsencrypt
     labels:
-      - "traefik.http.routers.traefik.rule=Host(`qa-challenge.dan1d.dev`)"
+      - "traefik.http.routers.api.entrypoints=websecure"
+      - "traefik.http.routers.api.tls.certresolver=myresolver"
+      - "traefik.http.routers.api.rule=Host(`qa-challenge.dan1d.dev`)"
       - "traefik.http.services.traefik.loadbalancer.server.port=8080"
 
 volumes:
   pgdata:
-

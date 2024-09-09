@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api';
 import { List, Input, Button, Card, message } from 'antd';
+import cable from '../utils/cable';
 
 const { TextArea } = Input;
 
@@ -26,6 +27,20 @@ const ChatRoomDetail = ({ chatRoomId }) => {
     };
 
     fetchMessages();
+
+    const subscription = cable.subscriptions.create(
+      { channel: 'ChatRoomChannel', chat_room_id: chatRoomId },
+      {
+        received: (data) => {
+          console.log(`Received data: ${data}`, data);
+          setMessages((prevMessages) => [...prevMessages, data]);
+        },
+      }
+    );
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, [chatRoomId]);
 
   const sendMessage = async () => {

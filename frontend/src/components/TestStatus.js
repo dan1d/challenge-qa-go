@@ -1,30 +1,52 @@
-// src/components/TestStatus.js
 import React, { useState, useEffect } from 'react';
-import cable from '../utils/cable';
+import { List, Typography, Spin } from 'antd';
+
+const { Title } = Typography;
 
 const TestStatus = () => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const subscription = cable.subscriptions.create('TestStatusChannel', {
-      received(data) {
-        setMessages((prevMessages) => [...prevMessages, data.message]);
-      }
-    });
+    const ws = new WebSocket('ws://localhost:3002');
+
+    ws.onopen = () => {
+      console.log('WebSocket connection established');
+    };
+
+    ws.onmessage = (event) => {
+      console.log('Received from WebSocket:', event.data); // Debugging log
+      setMessages((prevMessages) => [...prevMessages, event.data]);
+    };
+
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error); // Debugging log
+    };
+
+    ws.onclose = () => {
+      console.log('WebSocket connection closed');
+    };
 
     return () => {
-      subscription.unsubscribe();
+      ws.close();
     };
   }, []);
 
   return (
     <div>
-      <h2>Test Status</h2>
-      <div>
-        {messages.map((msg, index) => (
-          <p key={index}>{msg}</p>
-        ))}
-      </div>
+      <Title level={3}>Test Status</Title>
+      {messages.length === 0 ? (
+        <Spin size="large" />
+      ) : (
+        <List
+          size="small"
+          bordered
+          dataSource={messages}
+          renderItem={(message, index) => (
+            <List.Item key={index}>{message}</List.Item>
+          )}
+          style={{ maxHeight: '200px', overflowY: 'auto' }}
+        />
+      )}
     </div>
   );
 };

@@ -1,16 +1,19 @@
 {
-    "name": "aqa",
-    "version": "1.0.0",
-    "description": "Automated QA for chat room application",
-    "main": "index.js",
-    "scripts": {
-      "cypress:open": "cypress open",
-      "cypress:run": "cypress run"
-    },
-    "dependencies": {
-      "cypress": "^13.0.0"
-    },
-    "devDependencies": {
-      "eslint": "^8.25.0"
-    }
+  "name": "aqa-service",
+  "version": "1.0.0",
+  "description": "Cypress test runner with Node.js server for AQA",
+  "main": "server.js",
+  "scripts": {
+    "test": "cypress run"
+  },
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "ws": "^7.5.10"
+  },
+  "devDependencies": {
+    "cypress": "^13.14.2",
+    "mochawesome": "^7.1.3"
   }
+}

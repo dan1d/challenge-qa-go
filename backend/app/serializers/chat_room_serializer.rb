@@ -1,4 +1,6 @@
 class ChatRoomSerializer < ActiveModel::Serializer
+  include Camelize
+
   attributes :id, :name, :is_private, :created_at, :updated_at
 
   has_many :messages

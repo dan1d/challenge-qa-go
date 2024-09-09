@@ -7,6 +7,11 @@ seed-dev:
 setup-dev:
 	docker-compose -f docker-compose.development.yml exec backend ./bin/rails db:setup
 
+build-dev:
+	docker-compose -f docker-compose.development.yml up --build
+start-dev:
+	docker-compose -f docker-compose.development.yml up
+
 
 migrate-prod:
 	docker-compose -f docker-compose.production.yml exec backend ./bin/rails db:migrate

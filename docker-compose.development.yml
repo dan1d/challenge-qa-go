@@ -21,11 +21,10 @@ services:
       file: ./frontend/.docker/development/development.yml
       service: frontend
 
-  # aqa:
-  #   extends:
-  #     file: ./aqa/.docker/development/development.yml
-  #     service: aqa
+  aqa:
+    extends:
+      file: ./aqa/.docker/development/development.yml
+      service: aqa
 
 volumes:
   pgdata:
-
