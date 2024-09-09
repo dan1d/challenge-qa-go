@@ -46,7 +46,6 @@ const ChatRoomDetail = ({ chatRoomId }) => {
   const sendMessage = async () => {
     try {
       const response = await api.chatRoom.sendMessage(chatRoomId, newMessage);
-      setMessages([...messages, response]);
       setNewMessage('');
     } catch (error) {
       console.error('Failed to send message', error);
