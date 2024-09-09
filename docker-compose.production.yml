@@ -25,6 +25,8 @@ services:
     extends:
       file: ./aqa/.docker/production/production.yml
       service: aqa
+    networks:
+      - default
 
   traefik:
     image: traefik:v2.6
