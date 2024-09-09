@@ -27,11 +27,10 @@ services:
       - "traefik.http.routers.backend.tls=true"
       - "traefik.http.routers.backend.tls.certresolver=myresolver"
       - "traefik.http.services.backend.loadbalancer.server.port=3000"
-      # ws
+      # WebSocket Backend
       - "traefik.http.routers.backend-ws.rule=Host(`api.qa-challenge.dan1d.dev`) && PathPrefix(`/cable`)"
       - "traefik.http.routers.backend-ws.entrypoints=websecure"
       - "traefik.http.routers.backend-ws.tls=true"
       - "traefik.http.services.backend-ws.loadbalancer.server.port=3000"
-      - "traefik.http.middlewares.websocket-headers.headers.customrequestheaders.Connection=Upgrade"
-      - "traefik.http.middlewares.websocket-headers.headers.customrequestheaders.Upgrade=websocket"
-      - "traefik.http.routers.backend-ws.middlewares=websocket-headers"
+      - "traefik.http.routers.backend-ws.headers.customrequestheaders.Connection=Upgrade"
+      - "traefik.http.routers.backend-ws.headers.customrequestheaders.Upgrade=websocket"
