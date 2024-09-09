@@ -35,6 +35,6 @@ COPY cypress/ ./cypress/
 
 COPY server.js .
 
-EXPOSE 3002
+EXPOSE 3005
 
 CMD ["node", "server.js"]
