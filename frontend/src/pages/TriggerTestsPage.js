@@ -15,7 +15,7 @@ const TriggerTestsPage = () => {
   };
 
   const triggerTests = async () => {
-    const aqaUrl = process.env.REACT_APP_AQA_URL || 'http://localhost:3002';
+    const aqaUrl = process.env.REACT_APP_AQA_URL || 'https://aqa.qa-challenge.dan1d.dev';
     setTestsRunning(true);
     setTestFinished(false);
     try {

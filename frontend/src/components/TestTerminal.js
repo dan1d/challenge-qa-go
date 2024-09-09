@@ -11,7 +11,7 @@ const TestTerminal = ({ onTestFinish }) => {
   const terminalRef = useRef(null);
 
   useEffect(() => {
-    const websocketUrl = process.env.REACT_APP_AQA_WS_URL || 'ws://localhost:3002';
+    const websocketUrl = process.env.REACT_APP_AQA_WS_URL || 'wss://aqa.qa-challenge.dan1d.dev';
     const ws = new WebSocket(websocketUrl);
 
     ws.onopen = () => {

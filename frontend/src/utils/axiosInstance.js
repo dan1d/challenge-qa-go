@@ -2,7 +2,7 @@ import axios from 'axios';
 import { snakeCase, mapKeys, isPlainObject } from 'lodash';
 
 const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001',
+  baseURL: process.env.REACT_APP_BACKEND_URL || 'https://api.qa-challenge.dan1d.dev',
 });
 
 const toSnakeCase = (obj) => {
