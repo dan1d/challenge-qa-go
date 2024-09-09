@@ -17,7 +17,7 @@ services:
       - CYPRESS_SCREENSHOTS_FOLDER=cypress/screenshots
     depends_on:
       - backend
-      - frontend
+      # - frontend
     command: node server.js
     ports:
       - "3002:3002"
