@@ -45,13 +45,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /letsencrypt:/letsencrypt
     labels:
-      - "traefik.http.routers.traefik-dashboard-http.rule=Host(`qa-challenge.dan1d.dev`)"
-      - "traefik.http.routers.traefik-dashboard-http.entrypoints=web"
-      - "traefik.http.routers.traefik-dashboard-https.rule=Host(`qa-challenge.dan1d.dev`)"
-      - "traefik.http.routers.traefik-dashboard-https.entrypoints=websecure"
-      - "traefik.http.routers.traefik-dashboard-https.tls=true"
-      - "traefik.http.routers.traefik-dashboard-https.tls.certresolver=myresolver"
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.qa-challenge.dan1d.dev`)"
+      - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
+      - "traefik.http.routers.traefik-dashboard.tls=true"
+      - "traefik.http.routers.traefik-dashboard.tls.certresolver=myresolver"
       - "traefik.http.services.traefik-dashboard.loadbalancer.server.port=8080"
+
 
 volumes:
   pgdata:
