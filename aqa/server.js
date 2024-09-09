@@ -63,6 +63,10 @@ app.post('/run-tests', (req, res) => {
   res.send({ message: 'Tests started successfully.' });
 });
 
+app.get('/ping', (req, res) => {
+  res.send({ message: 'pong' });
+});
+
 app.server = app.listen(port, () => {
   console.log(`AQA server running at http://localhost:${port}`);
 });
