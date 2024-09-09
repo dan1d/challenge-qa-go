@@ -17,6 +17,7 @@ app.use(cors({
 
 app.use('/reports', express.static(path.join(__dirname, 'results')));
 
+// WebSocket setup
 const wss = new WebSocket.Server({ noServer: true });
 let isTestRunning = false;
 let testLogs = [];
@@ -31,6 +32,7 @@ const broadcast = (message) => {
   });
 };
 
+// Function to run Cypress tests
 const runCypress = () => {
   console.log('Starting Cypress tests...');
   const cypressCommand = 'npx cypress run --browser chrome --headless --config-file cypress.config.js';
@@ -57,6 +59,7 @@ const runCypress = () => {
   });
 };
 
+// Handle /run-tests POST request
 app.post('/run-tests', (req, res) => {
   console.log('Received request to run tests');
   if (isTestRunning) {
@@ -70,32 +73,35 @@ app.post('/run-tests', (req, res) => {
   res.send({ message: 'Tests started successfully.' });
 });
 
-
+// Handle /ping GET request
 app.get('/ping', (req, res) => {
   console.log('Received ping request');
   res.send({ message: 'pong' });
 });
 
-
+// Start the server
 app.server = app.listen(port, () => {
   console.log(`AQA server running at http://localhost:${port}`);
 });
 
-
+// Handle WebSocket upgrade
 app.server.on('upgrade', (request, socket, head) => {
+  console.log(`Received upgrade request on ${request.url}`);
+
   if (request.url.startsWith('/ws')) {
     console.log('WebSocket connection upgrade');
     wss.handleUpgrade(request, socket, head, (ws) => {
+      console.log('WebSocket upgrade complete');
       wss.emit('connection', ws, request);
     });
-  }
-  else {
+  } else {
+    console.log('Non-WebSocket upgrade, destroying socket');
     socket.destroy();
   }
 });
 
-
-wss.on('connection', (ws) => {
+// WebSocket connection events
+wss.on('connection', (ws, request) => {
   console.log('New WebSocket connection');
   clients.add(ws);
 
@@ -108,7 +114,6 @@ wss.on('connection', (ws) => {
     clients.delete(ws);
   });
 
-  console.log('WebSocket connection established');
   ws.on('message', (message) => {
     console.log(`Received WebSocket message: ${message}`);
     if (message === 'start-tests' && !isTestRunning) {
