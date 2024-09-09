@@ -2,6 +2,9 @@ const express = require('express');
 const { exec } = require('child_process');
 const WebSocket = require('ws');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
+
 
 const app = express();
 const port = 3006;
@@ -51,6 +54,27 @@ const runCypress = () => {
     isTestRunning = false;
     testLogs = [];
     currentTestProcess = null;
+    const resultsDir = path.join(__dirname, 'results');
+
+
+    fs.readdir(resultsDir, (err, files) => {
+      if (err) {
+        console.error(`Error reading results directory: ${err}`);
+        return;
+      }
+
+      files.forEach((file) => {
+        const filePath = path.join(resultsDir, file);
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            console.error(`Error deleting file ${filePath}: ${err}`);
+          } else {
+            console.log(`Deleted ${filePath}`);
+          }
+        });
+      });
+    });
+
     const mergeCommand = 'npx mochawesome-merge results/*.json > results/mochawesome.json && npx marge results/mochawesome.json --reportDir results --reportFilename mochawesome-final';
     exec(mergeCommand, (error, stdout, stderr) => {
       if (error) {
