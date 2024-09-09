@@ -8,7 +8,7 @@ const app = express();
 // const port = process.env.PORT || 3002;
 const port = 3002;
 
-const allowedOrigins = ['https://app.qa-challenge.dan1d.dev'];
+const allowedOrigins = ['https://app.qa-challenge.dan1d.dev', 'https://aqa.qa-challenge.dan1d.dev'];
 app.use(cors({
   origin: allowedOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
