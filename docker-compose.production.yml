@@ -37,18 +37,18 @@ services:
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
       - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL}"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-  ports:
-    - "80:80"
-    - "443:443"
-  volumes:
-    - /var/run/docker.sock:/var/run/docker.sock
-    - /letsencrypt:/letsencrypt
-  labels:
-    - "traefik.http.routers.traefik-dashboard.rule=Host(`qa-challenge.dan1d.dev`)"
-    - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
-    - "traefik.http.routers.traefik-dashboard.tls=true"
-    - "traefik.http.routers.traefik-dashboard.tls.certresolver=myresolver"
-    - "traefik.http.services.traefik-dashboard.loadbalancer.server.port=8080"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /letsencrypt:/letsencrypt
+    labels:
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`qa-challenge.dan1d.dev`)"
+      - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
+      - "traefik.http.routers.traefik-dashboard.tls=true"
+      - "traefik.http.routers.traefik-dashboard.tls.certresolver=myresolver"
+      - "traefik.http.services.traefik-dashboard.loadbalancer.server.port=8080"
 
 volumes:
   pgdata:
