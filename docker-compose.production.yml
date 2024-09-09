@@ -21,10 +21,10 @@ services:
   #     file: ./frontend/.docker/production/production.yml
   #     service: frontend
 
-  # aqa:
-  #   extends:
-  #     file: ./aqa/.docker/production/production.yml
-  #     service: aqa
+  aqa:
+    extends:
+      file: ./aqa/.docker/production/production.yml
+      service: aqa
 
   traefik:
     image: traefik:v2.6

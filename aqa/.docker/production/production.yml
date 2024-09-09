@@ -16,7 +16,7 @@ services:
       - CYPRESS_VIDEOS_FOLDER=cypress/videos
       - CYPRESS_SCREENSHOTS_FOLDER=cypress/screenshots
     depends_on:
-      - backend
+      # - backend
       # - frontend
     command: node server.js
     ports:
