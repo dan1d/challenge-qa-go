@@ -83,10 +83,12 @@ app.server = app.listen(port, () => {
 
 
 app.server.on('upgrade', (request, socket, head) => {
-  console.log('WebSocket connection upgrade');
-  wss.handleUpgrade(request, socket, head, (ws) => {
-    wss.emit('connection', ws, request);
-  });
+  if (request.url.startsWith('/ws')) {
+    console.log('WebSocket connection upgrade');
+    wss.handleUpgrade(request, socket, head, (ws) => {
+      wss.emit('connection', ws, request);
+    });
+  };
 });
 
 wss.on('connection', (ws) => {
