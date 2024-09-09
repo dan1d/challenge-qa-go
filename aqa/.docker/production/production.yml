@@ -22,7 +22,6 @@ services:
     ports:
       - "3002:3002"
     labels:
-  labels:
       - "traefik.http.routers.aqa.rule=Host(`aqa.qa-challenge.dan1d.dev`)"
       - "traefik.http.routers.aqa.entrypoints=websecure,wss"
       - "traefik.http.routers.aqa.tls=true"
