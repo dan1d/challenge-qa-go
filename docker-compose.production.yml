@@ -55,8 +55,6 @@ services:
       - "traefik.http.routers.traefik-dashboard.tls=true"
       - "traefik.http.routers.traefik-dashboard.tls.certresolver=myresolver"
       - "traefik.http.services.traefik-dashboard.loadbalancer.server.port=8080"
-      # - "traefik.http.routers.aqa.service=aqa"
-      # - "traefik.http.services.aqa.loadbalancer.server.port=3005"
     environment:
       - TRAEFIK_LOG_LEVEL=DEBUG
       - TRAEFIK_ACCESSLOG=true
