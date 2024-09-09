@@ -100,11 +100,6 @@ wss.on('connection', (ws) => {
     testLogs.forEach((log) => ws.send(log));
   }
 
-  if (request.url === '/ping') {
-    console.log('Received WebSocket ping request');
-    ws.send(JSON.stringify({ message: 'pong' }));
-  }
-
   ws.on('close', () => {
     console.log('WebSocket connection closed');
     clients.delete(ws);
