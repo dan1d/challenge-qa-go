@@ -16,7 +16,7 @@ const TriggerTestsPage = () => {
   };
 
   useEffect(() => {
-    const websocketUrl = process.env.REACT_APP_AQA_WS_URL || 'wss://ws-aqa.qa-challenge.dan1d.dev/ws';  // Connect to WebSocket server2.js
+    const websocketUrl = 'wss://ws-aqa.qa-challenge.dan1d.dev/ws';  // Connect to WebSocket server2.js
     const wsInstance = new WebSocket(websocketUrl);
 
     wsInstance.onopen = () => {
