@@ -5,7 +5,8 @@ const cors = require('cors');
 const path = require('path');
 
 const app = express();
-const port = process.env.PORT || 3002;
+// const port = process.env.PORT || 3002;
+const port = 3002;
 
 const allowedOrigins = ['https://app.qa-challenge.dan1d.dev'];
 app.use(cors({
