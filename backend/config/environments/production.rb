@@ -87,4 +87,10 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  config.action_cable.url = "wss://api.qa-challenge.dan1d.dev/cable"
+  config.action_cable.allowed_request_origins = [
+    /https:\/\/app.qa-challenge.dan1d.dev/,  # Your frontend
+    /https:\/\/api.qa-challenge.dan1d.dev/   # Your backend
+  ]
+
 end
