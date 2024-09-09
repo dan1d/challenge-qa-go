@@ -11,7 +11,7 @@ const TestTerminal = ({ onTestFinish }) => {
   const terminalRef = useRef(null);
 
   useEffect(() => {
-    const websocketUrl = process.env.REACT_APP_AQA_WS_URL || 'wss://aqa.qa-challenge.dan1d.dev/ws';
+    const websocketUrl = 'wss://ws-aqa.qa-challenge.dan1d.dev/ws';
     const ws = new WebSocket(websocketUrl);
 
     ws.onopen = () => {
@@ -50,7 +50,7 @@ const TestTerminal = ({ onTestFinish }) => {
     setShowReport(!showReport);
   };
 
-  const reportUrl = `${process.env.REACT_APP_AQA_URL}/reports/mochawesome.html`;
+  const reportUrl = `https://aqa.qa-challenge.dan1d.dev/reports/mochawesome.html`;
 
   return (
     <Card title="Test Terminal" className="test-terminal-card">

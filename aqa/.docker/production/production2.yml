@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  aqa-ws:
+    build:
+      context: ../../
+      dockerfile: .docker/production/Dockerfile2
+    volumes:
+      - ../results:/app/results
+    environment:
+      - NODE_ENV=production
+      - CYPRESS_BASE_URL=${CYPRESS_BASE_URL}
+      - CYPRESS_SUPPORT_FILE=cypress/support/index.js
+      - CYPRESS_FIXTURES_FOLDER=cypress/fixtures
+      - CYPRESS_VIDEOS_FOLDER=cypress/videos
+      - CYPRESS_SCREENSHOTS_FOLDER=cypress/screenshots
+    ports:
+      - "3006:3006"
+    depends_on:
+      # - backend
+      # - frontend
+    command: node server2.js
+    labels:
+      - "traefik.http.routers.aqa-ws.rule=Host(`ws-aqa.qa-challenge.dan1d.dev`)"
+      - "traefik.http.routers.aqa-ws.entrypoints=websecure"
+      - "traefik.http.routers.aqa-ws.tls=true"
+      - "traefik.http.services.aqa-ws.loadbalancer.server.port=3006"
+      - "traefik.http.middlewares.websocket-headers.headers.customrequestheaders.Connection=Upgrade"
+      - "traefik.http.middlewares.websocket-headers.headers.customrequestheaders.Upgrade=websocket"
+      - "traefik.http.routers.aqa-ws.middlewares=websocket-headers"

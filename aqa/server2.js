@@ -2,25 +2,17 @@ const express = require('express');
 const { exec } = require('child_process');
 const WebSocket = require('ws');
 const cors = require('cors');
-const path = require('path');
 
 const app = express();
-// const port = process.env.PORT || 3002;
-const port = 3005;
+const port = 3006;  // Ensure this is not conflicting with other services
 
-app.use((req, res, next) => {
-  console.log(`Received ${req.method} request for ${req.url}`);
-  next();
-});
-
+// Allow CORS
 const allowedOrigins = ['https://app.qa-challenge.dan1d.dev', 'https://aqa.qa-challenge.dan1d.dev'];
 app.use(cors({
   origin: allowedOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 }));
-
-app.use('/reports', express.static(path.join(__dirname, 'results')));
 
 // WebSocket setup
 const wss = new WebSocket.Server({ noServer: true });
@@ -64,32 +56,12 @@ const runCypress = () => {
   });
 };
 
-// Handle /run-tests POST request
-app.post('/run-tests', (req, res) => {
-  console.log('Received request to run tests');
-  if (isTestRunning) {
-    console.log('Tests are already running');
-    return res.status(400).send({ message: 'Tests are already running.' });
-  }
-
-  isTestRunning = true;
-  testLogs = [];
-  runCypress();
-  res.send({ message: 'Tests started successfully.' });
-});
-
-// Handle /ping GET request
-app.get('/ping', (req, res) => {
-  console.log('Received ping request');
-  res.send({ message: 'pong' });
-});
-
 // Start the server
 app.server = app.listen(port, () => {
-  console.log(`AQA server running at http://localhost:${port}`);
+  console.log(`AQA WebSocket server running at http://localhost:${port}`);
 });
 
-// Handle WebSocket upgrade
+// Handle WebSocket upgrade for `/ws` endpoint
 app.server.on('upgrade', (request, socket, head) => {
   console.log(`Received upgrade request on ${request.url}`);
 
@@ -106,7 +78,7 @@ app.server.on('upgrade', (request, socket, head) => {
 });
 
 // WebSocket connection events
-wss.on('connection', (ws, request) => {
+wss.on('connection', (ws) => {
   console.log('New WebSocket connection');
   clients.add(ws);
 
