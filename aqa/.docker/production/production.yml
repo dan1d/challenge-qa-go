@@ -26,12 +26,10 @@ services:
       - "traefik.http.routers.aqa.tls=true"
       - "traefik.http.routers.aqa.tls.certresolver=myresolver"
       - "traefik.http.services.aqa.loadbalancer.server.port=3005"
-
-      # # WebSocket handling for WebSocket connections
-      # - "traefik.http.routers.aqa-ws.rule=Host(`aqa.qa-challenge.dan1d.dev`) && PathPrefix(`/ws`)"  # Update the PathPrefix to match your WebSocket routes
-      # - "traefik.http.routers.aqa-ws.entrypoints=websecure"
-      # - "traefik.http.routers.aqa-ws.tls=true"
-      # - "traefik.http.services.aqa-ws.loadbalancer.server.port=3005"
-      # - "traefik.http.middlewares.websocket-headers.headers.customrequestheaders.Connection=Upgrade"
-      # - "traefik.http.middlewares.websocket-headers.headers.customrequestheaders.Upgrade=websocket"
-      # - "traefik.http.routers.aqa-ws.middlewares=websocket-headers"
+      - "traefik.http.routers.aqa-ws.rule=Host(`aqa.qa-challenge.dan1d.dev`) && PathPrefix(`/ws`)"
+      - "traefik.http.routers.aqa-ws.entrypoints=websecure"
+      - "traefik.http.routers.aqa-ws.tls=true"
+      - "traefik.http.services.aqa-ws.loadbalancer.server.port=3005"
+      - "traefik.http.middlewares.websocket-headers.headers.customrequestheaders.Connection=Upgrade"
+      - "traefik.http.middlewares.websocket-headers.headers.customrequestheaders.Upgrade=websocket"
+      - "traefik.http.routers.aqa-ws.middlewares=websocket-headers"
