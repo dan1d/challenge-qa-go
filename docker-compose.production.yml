@@ -25,10 +25,10 @@ services:
     extends:
       file: ./aqa/.docker/production/production.yml
       service: aqa
-  aqa2:
+  aqa-ws:
     extends:
       file: ./aqa/.docker/production/production2.yml
-      service: aqa2
+      service: aqa-ws
 
   traefik:
     image: traefik:v2.6
