@@ -57,6 +57,11 @@ services:
       - "traefik.http.services.traefik-dashboard.loadbalancer.server.port=8080"
       # - "traefik.http.routers.aqa.service=aqa"
       # - "traefik.http.services.aqa.loadbalancer.server.port=3005"
+    environment:
+      - TRAEFIK_LOG_LEVEL=DEBUG
+      - TRAEFIK_ACCESSLOG=true
+      - TRAEFIK_ACCESSLOG_FIELDS_DEFAULTMODE=keep
+      - TRAEFIK_ACCESSLOG_FIELDS_NAMES_CLIENTUSERNAME=drop
 
 
 volumes:
