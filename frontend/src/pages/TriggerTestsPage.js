@@ -44,7 +44,7 @@ const TriggerTestsPage = () => {
   }, []);
 
   const triggerTests = () => {
-    const websocketUrl = 'wss://ws-aqa.qa-challenge.dan1d.dev';
+    const websocketUrl = 'wss://ws-aqa.qa-challenge.dan1d.dev/ws';
     const ws = new WebSocket(websocketUrl);
 
     setTestsRunning(true);
