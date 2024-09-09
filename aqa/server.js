@@ -31,20 +31,24 @@ const broadcast = (message) => {
 };
 
 const runCypress = () => {
+  console.log('Starting Cypress tests...');
   const cypressCommand = 'npx cypress run --browser chrome --headless --config-file cypress.config.js';
   currentTestProcess = exec(cypressCommand);
 
   currentTestProcess.stdout.on('data', (data) => {
+    console.log(`Cypress stdout: ${data}`);
     testLogs.push(data);
     broadcast(data);
   });
 
   currentTestProcess.stderr.on('data', (data) => {
+    console.error(`Cypress stderr: ${data}`);
     testLogs.push(`Error: ${data}`);
     broadcast(`Error: ${data}`);
   });
 
   currentTestProcess.on('close', (code) => {
+    console.log(`Cypress tests finished with exit code ${code}`);
     broadcast(`Cypress tests finished with exit code ${code}`);
     isTestRunning = false;
     testLogs = [];
@@ -53,8 +57,10 @@ const runCypress = () => {
 };
 
 app.post('/run-tests', (req, res) => {
+  console.log('Received request to run tests');
   if (isTestRunning) {
-    return res.send({ message: 'Tests are already running.' });
+    console.log('Tests are already running');
+    return res.status(400).send({ message: 'Tests are already running.' });
   }
 
   isTestRunning = true;
@@ -63,21 +69,27 @@ app.post('/run-tests', (req, res) => {
   res.send({ message: 'Tests started successfully.' });
 });
 
+
 app.get('/ping', (req, res) => {
+  console.log('Received ping request');
   res.send({ message: 'pong' });
 });
+
 
 app.server = app.listen(port, () => {
   console.log(`AQA server running at http://localhost:${port}`);
 });
 
+
 app.server.on('upgrade', (request, socket, head) => {
+  console.log('WebSocket connection upgrade');
   wss.handleUpgrade(request, socket, head, (ws) => {
     wss.emit('connection', ws, request);
   });
 });
 
 wss.on('connection', (ws) => {
+  console.log('New WebSocket connection');
   clients.add(ws);
 
   if (testLogs.length > 0) {
@@ -85,10 +97,12 @@ wss.on('connection', (ws) => {
   }
 
   ws.on('close', () => {
+    console.log('WebSocket connection closed');
     clients.delete(ws);
   });
 
   ws.on('message', (message) => {
+    console.log(`Received WebSocket message: ${message}`);
     if (message === 'start-tests' && !isTestRunning) {
       runCypress();
     }
