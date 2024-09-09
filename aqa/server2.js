@@ -30,7 +30,7 @@ const broadcast = (message) => {
 
 const runCypress = () => {
   console.log('Starting Cypress tests...');
-  const cypressCommand = 'npx cypress run --browser chrome --headless --config-file cypress.config.js';
+  const cypressCommand = 'npx cypress run --browser electron --headless --config-file cypress.config.js';
   currentTestProcess = exec(cypressCommand);
 
   currentTestProcess.stdout.on('data', (data) => {
