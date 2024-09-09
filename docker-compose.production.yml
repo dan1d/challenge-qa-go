@@ -47,7 +47,6 @@ services:
     labels:
       - "traefik.http.routers.traefik-dashboard-http.rule=Host(`qa-challenge.dan1d.dev`)"
       - "traefik.http.routers.traefik-dashboard-http.entrypoints=web"
-      - "traefik.http.services.traefik-dashboard.loadbalancer.server.port=8080"
       - "traefik.http.routers.traefik-dashboard-https.rule=Host(`qa-challenge.dan1d.dev`)"
       - "traefik.http.routers.traefik-dashboard-https.entrypoints=websecure"
       - "traefik.http.routers.traefik-dashboard-https.tls=true"
