@@ -43,32 +43,36 @@ const TriggerTestsPage = () => {
     };
   }, []);
 
-  const triggerTests = async () => {
-    const aqaUrl = process.env.REACT_APP_AQA_URL || 'https://aqa.qa-challenge.dan1d.dev'; // server1.js for HTTP requests
+  const triggerTests = () => {
+    const websocketUrl = 'wss://ws-aqa.qa-challenge.dan1d.dev';
+    const ws = new WebSocket(websocketUrl);
 
     setTestsRunning(true);
     setTestFinished(false);
 
-    try {
+    ws.onopen = () => {
       // Send WebSocket message to trigger tests
-      if (ws && ws.readyState === WebSocket.OPEN) {
-        ws.send('start-tests');
-      }
+      ws.send('start-tests');
+      antMessage.success('Tests started successfully.');
+    };
 
-      // Trigger tests via HTTP request as well (for server1.js)
-      const response = await axios.post(`${aqaUrl}/run-tests`);
-      if (response.data.message === 'Tests started successfully.') {
-        antMessage.success('Tests started successfully.');
-      } else {
-        antMessage.warning(response.data.message);
-        setTestsRunning(false);
-      }
-    } catch (error) {
-      console.error('Error triggering tests', error);
+    ws.onmessage = (event) => {
+      // Handle WebSocket message (e.g., test updates)
+      console.log('WebSocket message:', event.data);
+    };
+
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
       antMessage.error('Failed to start tests.');
       setTestsRunning(false);
-    }
+    };
+
+    ws.onclose = () => {
+      console.log('WebSocket connection closed.');
+      setTestsRunning(false);
+    };
   };
+
 
   return (
     <div style={{ maxWidth: '800px', margin: 'auto', padding: '40px 0' }}>
