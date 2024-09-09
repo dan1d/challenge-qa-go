@@ -14,6 +14,8 @@ services:
       - CYPRESS_FIXTURES_FOLDER=cypress/fixtures
       - CYPRESS_VIDEOS_FOLDER=cypress/videos
       - CYPRESS_SCREENSHOTS_FOLDER=cypress/screenshots
+    ports:
+      - "3005:3005"
     depends_on:
       # - backend
       # - frontend
