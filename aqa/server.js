@@ -7,7 +7,13 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3002;
 
-app.use(cors());
+const allowedOrigins = ['https://app.qa-challenge.dan1d.dev'];
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+}));
+
 app.use('/reports', express.static(path.join(__dirname, 'results')));
 
 const wss = new WebSocket.Server({ noServer: true });
