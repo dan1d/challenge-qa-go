@@ -36,8 +36,6 @@ const TriggerTestsPage = () => {
     };
 
     setWs(wsInstance);
-
-    // Cleanup WebSocket on unmount
     return () => {
       wsInstance.close();
     };
@@ -51,13 +49,11 @@ const TriggerTestsPage = () => {
     setTestFinished(false);
 
     ws.onopen = () => {
-      // Send WebSocket message to trigger tests
       ws.send('start-tests');
       antMessage.success('Tests started successfully.');
     };
 
     ws.onmessage = (event) => {
-      // Handle WebSocket message (e.g., test updates)
       console.log('WebSocket message:', event.data);
     };
 

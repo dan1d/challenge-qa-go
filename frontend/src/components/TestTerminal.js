@@ -50,7 +50,7 @@ const TestTerminal = ({ onTestFinish }) => {
     setShowReport(!showReport);
   };
 
-  const reportUrl = `https://aqa.qa-challenge.dan1d.dev/reports/mochawesome.html`;
+  const reportUrl = `https://aqa.qa-challenge.dan1d.dev/reports/mochawesome-final.html`;
 
   return (
     <Card title="Test Terminal" className="test-terminal-card">
