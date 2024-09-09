@@ -16,10 +16,10 @@ services:
       file: ./backend/.docker/production/db.yml
       service: db
 
-  frontend:
-    extends:
-      file: ./frontend/.docker/production/production.yml
-      service: frontend
+  # frontend:
+  #   extends:
+  #     file: ./frontend/.docker/production/production.yml
+  #     service: frontend
 
   aqa:
     extends:
