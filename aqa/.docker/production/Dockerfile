@@ -1,6 +1,4 @@
-
-FROM cypress/included:13.14.2
-
+FROM node:20.17.0
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
@@ -30,13 +28,13 @@ RUN apt-get update && apt-get install -y \
 
 
 COPY package.json package-lock.json ./
-
 RUN npm install
 
 COPY cypress.config.js .
 COPY cypress/ ./cypress/
 
 COPY server.js .
+
 EXPOSE 3002
 
 CMD ["node", "server.js"]
