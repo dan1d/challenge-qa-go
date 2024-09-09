@@ -19,13 +19,11 @@ services:
       # - frontend
     command: node server.js
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.aqa.rule=Host(`aqa.qa-challenge.dan1d.dev`)"
-      - "traefik.http.routers.aqa.entrypoints=websecure"
-      - "traefik.http.routers.aqa.tls=true"
-      - "traefik.http.routers.aqa.tls.certresolver=myresolver"
-      - "traefik.http.services.aqa.loadbalancer.server.port=3005"
-      - "traefik.http.middlewares.aqa-websocket.headers.customrequestheaders.Connection=Upgrade"
-      - "traefik.http.middlewares.aqa-websocket.headers.customrequestheaders.Upgrade=websocket"
-      - "traefik.http.routers.aqa.middlewares=aqa-websocket@docker"
-      - "traefik.http.services.aqa.loadbalancer.passHostHeader=true"
+      - "traefik.http.routers.backend.rule=Host(`aqa.qa-challenge.dan1d.dev`)"
+      - "traefik.http.routers.backend.entrypoints=websecure"
+      - "traefik.http.routers.backend.tls=true"
+      - "traefik.http.routers.backend.tls.certresolver=myresolver"
+      - "traefik.http.services.backend.loadbalancer.server.port=3005"
+      - "traefik.http.middlewares.websocket-headers.headers.customrequestheaders.Connection=Upgrade"
+      - "traefik.http.middlewares.websocket-headers.headers.customrequestheaders.Upgrade=websocket"
+      - "traefik.http.routers.backend.middlewares=websocket-headers"
