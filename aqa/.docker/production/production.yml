@@ -1,36 +1,53 @@
 version: '3.8'
 
 services:
+  redis:
+    extends:
+      file: ./backend/.docker/production/redis.yml
+      service: redis
+
+  backend:
+    extends:
+      file: ./backend/.docker/production/production.yml
+      service: backend
+
+  db:
+    extends:
+      file: ./backend/.docker/production/db.yml
+      service: db
+
+  frontend:
+    extends:
+      file: ./frontend/.docker/production/production.yml
+      service: frontend
+
   aqa:
-    build:
-      context: ../../
-      dockerfile: .docker/production/Dockerfile
-    volumes:
-      - ../results:/app/results
-    environment:
-      - NODE_ENV=production
-      - PORT=3002
-      - CYPRESS_BASE_URL=${CYPRESS_BASE_URL}
-      - CYPRESS_SUPPORT_FILE=cypress/support/index.js
-      - CYPRESS_FIXTURES_FOLDER=cypress/fixtures
-      - CYPRESS_VIDEOS_FOLDER=cypress/videos
-      - CYPRESS_SCREENSHOTS_FOLDER=cypress/screenshots
-    depends_on:
-      - backend
-      - frontend
-    command: node server.js
+    extends:
+      file: ./aqa/.docker/production/production.yml
+      service: aqa
+
+  traefik:
+    image: traefik:v2.6
+    command:
+      - "--api.insecure=false"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
-      - "3002:3002"
-  labels:
-    - "traefik.http.routers.aqa.rule=Host(`aqa.qa-challenge.dan1d.dev`)"
-    - "traefik.http.routers.aqa.entrypoints=websecure"
-    - "traefik.http.routers.aqa.tls=true"
-    - "traefik.http.routers.aqa.service=aqa"
-    - "traefik.http.services.aqa.loadbalancer.server.port=3002"
-    - "traefik.http.routers.aqa-ws.rule=Host(`aqa.qa-challenge.dan1d.dev`)"
-    - "traefik.http.routers.aqa-ws.entrypoints=websecure"
-    - "traefik.http.routers.aqa-ws.tls=true"
-    - "traefik.http.routers.aqa-ws.service=aqa"
-    - "traefik.http.services.aqa-ws.loadbalancer.server.port=3002"
-    - "traefik.http.routers.aqa-ws.headers.customrequestheaders.Connection=Upgrade"
-    - "traefik.http.routers.aqa-ws.headers.customrequestheaders.Upgrade=websocket"
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /letsencrypt:/letsencrypt
+    labels:
+      - "traefik.http.routers.api.entrypoints=websecure"
+      - "traefik.http.routers.api.tls.certresolver=myresolver"
+      - "traefik.http.routers.api.rule=Host(`qa-challenge.dan1d.dev`)"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+
+volumes:
+  pgdata:
+  letsencrypt:
