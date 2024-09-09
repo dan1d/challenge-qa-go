@@ -55,7 +55,7 @@ const runCypress = () => {
     testLogs = [];
     currentTestProcess = null;
 
-    const mergeCommand = 'npx mochawesome-merge results/*.json > results/mochawesome.json && npx marge results/mochawesome.json --reportDir results --reportFilename mochawesome-final';
+    const mergeCommand = 'npx mochawesome-merge results/mochawesome*.json > results/mochawesome_final.json && npx marge results/mochawesome_final.json --reportDir results --reportFilename mochawesome-final';
     exec(mergeCommand, (error, stdout, stderr) => {
       if (error) {
         console.error(`Error merging reports: ${error}`);
