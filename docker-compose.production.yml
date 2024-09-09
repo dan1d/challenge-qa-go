@@ -1,25 +1,25 @@
 version: '3.8'
 
 services:
-  # redis:
-  #   extends:
-  #     file: ./backend/.docker/production/redis.yml
-  #     service: redis
+  redis:
+    extends:
+      file: ./backend/.docker/production/redis.yml
+      service: redis
 
-  # backend:
-  #   extends:
-  #     file: ./backend/.docker/production/production.yml
-  #     service: backend
+  backend:
+    extends:
+      file: ./backend/.docker/production/production.yml
+      service: backend
 
-  # db:
-  #   extends:
-  #     file: ./backend/.docker/production/db.yml
-  #     service: db
+  db:
+    extends:
+      file: ./backend/.docker/production/db.yml
+      service: db
 
-  # frontend:
-  #   extends:
-  #     file: ./frontend/.docker/production/production.yml
-  #     service: frontend
+  frontend:
+    extends:
+      file: ./frontend/.docker/production/production.yml
+      service: frontend
 
   aqa:
     extends:
