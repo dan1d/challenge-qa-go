@@ -54,26 +54,6 @@ const runCypress = () => {
     isTestRunning = false;
     testLogs = [];
     currentTestProcess = null;
-    const resultsDir = path.join(__dirname, 'results');
-
-
-    fs.readdir(resultsDir, (err, files) => {
-      if (err) {
-        console.error(`Error reading results directory: ${err}`);
-        return;
-      }
-
-      files.forEach((file) => {
-        const filePath = path.join(resultsDir, file);
-        fs.unlink(filePath, (err) => {
-          if (err) {
-            console.error(`Error deleting file ${filePath}: ${err}`);
-          } else {
-            console.log(`Deleted ${filePath}`);
-          }
-        });
-      });
-    });
 
     const mergeCommand = 'npx mochawesome-merge results/*.json > results/mochawesome.json && npx marge results/mochawesome.json --reportDir results --reportFilename mochawesome-final';
     exec(mergeCommand, (error, stdout, stderr) => {
@@ -128,7 +108,30 @@ wss.on('connection', (ws) => {
   ws.on('message', (message) => {
     console.log(`Received WebSocket message: ${message}`);
     if (message === 'start-tests' && !isTestRunning) {
+      clearResults();
       runCypress();
     }
   });
 });
+
+const clearResults = () => {
+  const resultsDir = path.join(__dirname, 'results');
+
+  fs.readdir(resultsDir, (err, files) => {
+    if (err) {
+      console.error(`Error reading results directory: ${err}`);
+      return;
+    }
+
+    files.forEach((file) => {
+      const filePath = path.join(resultsDir, file);
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error(`Error deleting file ${filePath}: ${err}`);
+        } else {
+          console.log(`Deleted ${filePath}`);
+        }
+      });
+    });
+  });
+}
