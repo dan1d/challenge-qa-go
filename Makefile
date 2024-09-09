@@ -14,10 +14,13 @@ start-dev:
 
 
 migrate-prod:
-	docker-compose -f docker-compose.production.yml exec backend ./bin/rails db:migrate
+	docker compose -f docker-compose.production.yml exec backend ./bin/rails db:migrate
 
 seed-prod:
-	docker-compose -f docker-compose.production.yml exec backend ./bin/rails db:seed
+	docker compose -f docker-compose.production.yml exec backend ./bin/rails db:seed
 
 setup-prod:
-	docker-compose -f docker-compose.production.yml exec backend ./bin/rails db:setup
+	docker compose -f docker-compose.production.yml exec backend ./bin/rails db:setup
+
+start:
+	docker compose -f docker-compose.production.yml up
