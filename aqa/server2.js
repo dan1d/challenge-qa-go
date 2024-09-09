@@ -117,6 +117,7 @@ wss.on('connection', (ws) => {
 const clearResults = () => {
   const resultsDir = path.join(__dirname, 'results');
 
+  console.log('Clearing results directory...');
   broadcast('Clearing results directory...');
   fs.readdir(resultsDir, (err, files) => {
     if (err) {
